@@ -133,7 +133,7 @@
         }
 
         function calcularManual() {
-            let dias = parseInt(document.getElementById("dias").value) || 0;
+            let diasTrabalhados = parseFloat(document.getElementById("diasTrabalhados").value) || 0;
             let horas = parseInt(document.getElementById("horas").value) || 0;
             let valorHora = parseFloat(document.getElementById("valorHoraManual").value) || 0;
             let total = dias * horas * valorHora;
