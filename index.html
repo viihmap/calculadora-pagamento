@@ -1,145 +1,145 @@
 <!DOCTYPE html>
- <html lang="pt-BR">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Calculadora de Pagamento</title>
-     <style>
-         body {
-             font-family: Arial, sans-serif;
-             background-color: #222;
-             color: yellow;
-             text-align: center;
-             padding: 20px;
-         }
-         .container {
-             background-color: #333;
-             padding: 20px;
-             border-radius: 10px;
-             display: inline-block;
-             box-shadow: 0px 0px 10px yellow;
-         }
-         button {
-             background-color: yellow;
-             color: black;
-             border: none;
-             padding: 10px 20px;
-             margin: 5px;
-             cursor: pointer;
-             font-weight: bold;
-             border-radius: 20px;
-         }
-         button.selected {
-             background-color: #ffcc00;
-         }
-         select, input {
-             padding: 8px;
-             margin: 10px 0;
-             border-radius: 5px;
-         }
-         #total {
-             font-size: 20px;
-             font-weight: bold;
-             background-color: yellow;
-             color: black;
-             padding: 5px;
-             display: inline-block;
-         }
-     </style>
- </head>
- <body>
-     <div class="container">
-         <h1>Calculadora de Pagamento</h1>
-         <button id="btnMes" class="selected" onclick="selecionarModo('mes')">Selecionar por Mês</button>
-         <button id="btnManual" onclick="selecionarModo('manual')">Preencher Manualmente</button>
-         
-         <div id="modoMes">
-             <label for="mes">Selecione o mês:</label>
-             <select id="mes" onchange="atualizarDiasUteis()">
-                 <option value="janeiro">Selecione</option>
-                 <option value="janeiro">Janeiro</option>
-                 <option value="fevereiro">Fevereiro</option>
-                 <option value="marco">Março</option>
-                 <option value="abril">Abril</option>
-                 <option value="maio">Maio</option>
-                 <option value="junho">Junho</option>
-                 <option value="julho">Julho</option>
-                 <option value="agosto">Agosto</option>
-                 <option value="setembro">Setembro</option>
-                 <option value="outubro">Outubro</option>
-                 <option value="novembro">Novembro</option>
-                 <option value="dezembro">Dezembro</option>
-             </select>
-             <p id="diasUteis"></p>
-             <label for="valorHoraMes">Valor da hora:</label>
-             <input type="number" id="valorHoraMes" value="1">
-             <button onclick="calcularMes()">Calcular</button>
-         </div>
- 
-         <div id="modoManual" style="display: none;">
-             <label for="dias">Quantos dias vai trabalhar?</label>
-             <input type="number" id="dias" value="22">
-             <label for="horas">Quantas horas por dia?</label>
-             <input type="number" id="horas" value="8">
-             <label for="valorHoraManual">Valor da hora:</label>
-             <input type="number" id="valorHoraManual" value="1">
-             <button onclick="calcularManual()">Calcular</button>
-         </div>
- 
-         <p>Total a receber: <span id="total">R$ 0,00</span></p>
-         <p id="calculoDetalhado"></p>
-     </div>
- 
-     <script>
-         function selecionarModo(modo) {
-             document.getElementById("modoMes").style.display = modo === "mes" ? "block" : "none";
-             document.getElementById("modoManual").style.display = modo === "manual" ? "block" : "none";
-             document.getElementById("total").innerText = "R$ 0,00";
-             document.getElementById("calculoDetalhado").innerText = "";
-             
-             document.getElementById("btnMes").classList.remove("selected");
-             document.getElementById("btnManual").classList.remove("selected");
-             
-             if (modo === "mes") {
-                 document.getElementById("btnMes").classList.add("selected");
-             } else {
-                 document.getElementById("btnManual").classList.add("selected");
-             }
-         }
- 
-         function atualizarDiasUteis() {
-             const diasUteisPorMes = {
-                 "janeiro": 22, "fevereiro": 20, "marco": 22, "abril": 21,
-                 "maio": 22, "junho": 21, "julho": 23, "agosto": 22,
-                 "setembro": 21, "outubro": 23, "novembro": 21, "dezembro": 20
-             };
-             let mesSelecionado = document.getElementById("mes").value;
-             let dias = diasUteisPorMes[mesSelecionado] || 22;
-             document.getElementById("diasUteis").innerText = `Dias úteis: ${dias}`;
-         }
- 
-         function calcularMes() {
-             let valorHora = parseFloat(document.getElementById("valorHoraMes").value) || 0;
-             let mesSelecionado = document.getElementById("mes").value;
-             const diasUteisPorMes = {
-                 "janeiro": 22, "fevereiro": 20, "marco": 22, "abril": 21,
-                 "maio": 22, "junho": 21, "julho": 23, "agosto": 22,
-                 "setembro": 21, "outubro": 23, "novembro": 21, "dezembro": 20
-             };
-             let dias = diasUteisPorMes[mesSelecionado] || 22;
-             let total = dias * 8 * valorHora;
-             document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
-             document.getElementById("calculoDetalhado").innerText = `Cálculo: ${dias} dias x 8 horas/dia x R$ ${valorHora.toFixed(2)} por hora.`;
-         }
- 
-         function calcularManual() {
-             let dias = parseInt(document.getElementById("dias").value) || 0;
-             let horas = parseInt(document.getElementById("horas").value) || 0;
-             let valorHora = parseFloat(document.getElementById("valorHoraManual").value) || 0;
-             let total = dias * horas * valorHora;
-             document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
-             document.getElementById("calculoDetalhado").innerText = `Cálculo: ${dias} dias x ${horas} horas/dia x R$ ${valorHora.toFixed(2)} por hora.`;
-         }
-     </script>
- </body>
- </html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: yellow;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 0px 10px yellow;
+        }
+        button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+        button.selected {
+            background-color: #ffcc00;
+        }
+        select, input {
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        #total {
+            font-size: 20px;
+            font-weight: bold;
+            background-color: yellow;
+            color: black;
+            padding: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Pagamento</h1>
+        <button id="btnMes" class="selected" onclick="selecionarModo('mes')">Selecionar por Mês</button>
+        <button id="btnManual" onclick="selecionarModo('manual')">Preencher Manualmente</button>
+        
+        <div id="modoMes">
+            <label for="mes">Selecione o mês:</label>
+            <select id="mes" onchange="atualizarDiasUteis()">
+                <option value="janeiro">Selecione</option>
+                <option value="janeiro">Janeiro</option>
+                <option value="fevereiro">Fevereiro</option>
+                <option value="marco">Março</option>
+                <option value="abril">Abril</option>
+                <option value="maio">Maio</option>
+                <option value="junho">Junho</option>
+                <option value="julho">Julho</option>
+                <option value="agosto">Agosto</option>
+                <option value="setembro">Setembro</option>
+                <option value="outubro">Outubro</option>
+                <option value="novembro">Novembro</option>
+                <option value="dezembro">Dezembro</option>
+            </select>
+            <p id="diasUteis"></p>
+            <label for="valorHoraMes">Valor da hora:</label>
+            <input type="number" id="valorHoraMes" value="1" step="0.01">
+            <button onclick="calcularMes()">Calcular</button>
+        </div>
+
+        <div id="modoManual" style="display: none;">
+            <label for="dias">Quantos dias vai trabalhar?</label>
+            <input type="number" id="dias" value="22" step="0.1">
+            <label for="horas">Quantas horas por dia?</label>
+            <input type="number" id="horas" value="8" step="0.1">
+            <label for="valorHoraManual">Valor da hora:</label>
+            <input type="number" id="valorHoraManual" value="1" step="0.01">
+            <button onclick="calcularManual()">Calcular</button>
+        </div>
+
+        <p>Total a receber: <span id="total">R$ 0,00</span></p>
+        <p id="calculoDetalhado"></p>
+    </div>
+
+    <script>
+        function selecionarModo(modo) {
+            document.getElementById("modoMes").style.display = modo === "mes" ? "block" : "none";
+            document.getElementById("modoManual").style.display = modo === "manual" ? "block" : "none";
+            document.getElementById("total").innerText = "R$ 0,00";
+            document.getElementById("calculoDetalhado").innerText = "";
+            
+            document.getElementById("btnMes").classList.remove("selected");
+            document.getElementById("btnManual").classList.remove("selected");
+            
+            if (modo === "mes") {
+                document.getElementById("btnMes").classList.add("selected");
+            } else {
+                document.getElementById("btnManual").classList.add("selected");
+            }
+        }
+
+        function atualizarDiasUteis() {
+            const diasUteisPorMes = {
+                "janeiro": 22, "fevereiro": 20, "marco": 22, "abril": 21,
+                "maio": 22, "junho": 21, "julho": 23, "agosto": 22,
+                "setembro": 21, "outubro": 23, "novembro": 21, "dezembro": 20
+            };
+            let mesSelecionado = document.getElementById("mes").value;
+            let dias = diasUteisPorMes[mesSelecionado] || 22;
+            document.getElementById("diasUteis").innerText = `Dias úteis: ${dias}`;
+        }
+
+        function calcularMes() {
+            let valorHora = parseFloat(document.getElementById("valorHoraMes").value.replace(',', '.')) || 0;
+            let mesSelecionado = document.getElementById("mes").value;
+            const diasUteisPorMes = {
+                "janeiro": 22, "fevereiro": 20, "marco": 22, "abril": 21,
+                "maio": 22, "junho": 21, "julho": 23, "agosto": 22,
+                "setembro": 21, "outubro": 23, "novembro": 21, "dezembro": 20
+            };
+            let dias = diasUteisPorMes[mesSelecionado] || 22;
+            let total = dias * 8 * valorHora;
+            document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
+            document.getElementById("calculoDetalhado").innerText = `Cálculo: ${dias} dias x 8 horas/dia x R$ ${valorHora.toFixed(2)} por hora.`;
+        }
+
+        function calcularManual() {
+            let dias = parseFloat(document.getElementById("dias").value.replace(',', '.')) || 0;
+            let horas = parseFloat(document.getElementById("horas").value.replace(',', '.')) || 0;
+            let valorHora = parseFloat(document.getElementById("valorHoraManual").value.replace(',', '.')) || 0;
+            let total = dias * horas * valorHora;
+            document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
+            document.getElementById("calculoDetalhado").innerText = `Cálculo: ${dias} dias x ${horas} horas/dia x R$ ${valorHora.toFixed(2)} por hora.`;
+        }
+    </script>
+</body>
+</html>
