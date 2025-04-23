@@ -6,44 +6,91 @@
     <title>Calculadora de Pagamento</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            color: yellow;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
         .container {
-            background-color: #333;
-            padding: 20px;
+            background-color: #2c2c2c;
             border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0px 0px 10px yellow;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        label {
+            font-size: 14px;
+            display: block;
+            margin: 10px 0 5px;
+            color: #ddd;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        /* Remover as setas dos campos de número */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #007BFF;
         }
         button {
-            background-color: yellow;
-            color: black;
+            background-color: #007BFF;
+            color: #fff;
             border: none;
-            padding: 10px 20px;
-            margin: 5px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
             cursor: pointer;
-            font-weight: bold;
-            border-radius: 20px;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         button.selected {
-            background-color: #ffcc00;
+            background-color: #0056b3;
         }
-        select, input {
-            padding: 8px;
-            margin: 10px 0;
+        button.selected:hover {
+            background-color: #004085;
+        }
+        .resultado {
+            background-color: #444;
+            color: white;
+            padding: 10px;
             border-radius: 5px;
+            margin-top: 15px;
+            font-size: 18px;
         }
-        #total {
-            font-size: 20px;
-            font-weight: bold;
-            background-color: yellow;
-            color: black;
-            padding: 5px;
-            display: inline-block;
+        .calculoDetalhado {
+            font-size: 14px;
+            color: #bbb;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -72,22 +119,24 @@
             </select>
             <p id="diasUteis"></p>
             <label for="valorHoraMes">Valor da hora:</label>
-            <input type="number" id="valorHoraMes" value="1" step="0.01">
+            <input type="number" id="valorHoraMes" value="1" step="0.01" min="0" oninput="validarNumero(this)">
             <button onclick="calcularMes()">Calcular</button>
         </div>
 
         <div id="modoManual" style="display: none;">
             <label for="dias">Quantos dias vai trabalhar?</label>
-            <input type="number" id="dias" value="22" step="0.1">
+            <input type="number" id="dias" value="22" step="0.1" min="0" oninput="validarNumero(this)">
             <label for="horas">Quantas horas por dia?</label>
-            <input type="number" id="horas" value="8" step="0.1">
+            <input type="number" id="horas" value="8" step="0.1" min="0" oninput="validarNumero(this)">
             <label for="valorHoraManual">Valor da hora:</label>
-            <input type="number" id="valorHoraManual" value="1" step="0.01">
+            <input type="number" id="valorHoraManual" value="1" step="0.01" min="0" oninput="validarNumero(this)">
             <button onclick="calcularManual()">Calcular</button>
         </div>
 
-        <p>Total a receber: <span id="total">R$ 0,00</span></p>
-        <p id="calculoDetalhado"></p>
+        <div class="resultado">
+            Total a receber: <span id="total">R$ 0,00</span>
+        </div>
+        <p id="calculoDetalhado" class="calculoDetalhado"></p>
     </div>
 
     <script>
@@ -139,6 +188,12 @@
             let total = dias * horas * valorHora;
             document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
             document.getElementById("calculoDetalhado").innerText = `Cálculo: ${dias} dias x ${horas} horas/dia x R$ ${valorHora.toFixed(2)} por hora.`;
+        }
+
+        function validarNumero(input) {
+            if (parseFloat(input.value) < 0) {
+                input.value = 0;
+            }
         }
     </script>
 </body>
