@@ -43,20 +43,20 @@
             font-size: 16px;
             background-color: #333;
             color: #fff;
+            box-sizing: border-box;
+            height: 42px;
         }
         input[type="number"]:focus, select:focus {
             outline: none;
             border-color: #007BFF;
         }
-        /* Remover as setas dos campos de número */
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #007BFF;
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
         button {
             background-color: #007BFF;
